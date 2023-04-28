@@ -7,46 +7,16 @@ import phongFragmentShader from "./phongFragmentShader.glsl.js";
 
 export class Sphere
 {
-    constructor(camera, scene, radius, position, scale, ambientColor, kDiffuse, kAmbient, kSpecular, alpha)
+    constructor(camera, scene, radius, position, scale, ambientColor, kDiffuse, kAmbient, kSpecular, alpha, PointLight1, PointLight2)
     {
         this.radius = radius
         this.position = position
         this.scale = scale
         this.shader_type = "gouraud"
         this.scene = scene
+        this.PointLight1 = PointLight1
+        this.PointLight2 = PointLight2
 
-        let PointLight1 = {
-            lightPos : new THREE.Vector3(-4, 2, 2),
-            diffuseColor : new THREE.Vector4(0.8,0.2,0.9,1.0),
-            kDiffuse : 0.9,
-            
-            kAmbient : 0.2,
-        
-            specularColor : new THREE.Vector4(1.0,1.0,1.0,1.0),
-            kSpecular : 0.7,
-            alpha : 100,
-        
-            a : 0.0,
-            b : 0.0,
-            c : 0.2
-        };
-        
-        let PointLight2 = {
-            lightPos : new THREE.Vector3(4, 2, 2),
-            diffuseColor : new THREE.Vector4(0.1,0.3,0.1,1.0),
-            kDiffuse : 0.2,
-        
-
-            kAmbient : 0.5,
-        
-            specularColor : new THREE.Vector4(0.2,0.2,0.8,0.1),
-            kSpecular : 0.9,
-            alpha : 100,
-        
-            a : 0.0,
-            b : 0.0,
-            c : 0.2
-        };
 
         this.phongMaterial = new THREE.ShaderMaterial(  
         {
@@ -54,23 +24,23 @@ export class Sphere
                 "pointLights" : {
                     value : [
                         {
-                            u_lightPos: PointLight1.lightPos,
-                            u_lightTarget: PointLight1.lightTarget,
-                            u_diffuseColor: PointLight1.diffuseColor,
-                            u_specularColor: PointLight1.specularColor,
-                            u_a : PointLight1.a,
-                            u_b : PointLight1.b,
-                            u_c : PointLight1.c
+                            u_lightPos: this.PointLight1.lightPos,
+                            u_lightTarget: this.PointLight1.lightTarget,
+                            u_diffuseColor: this.PointLight1.diffuseColor,
+                            u_specularColor: this.PointLight1.specularColor,
+                            u_a : this.PointLight1.a,
+                            u_b : this.PointLight1.b,
+                            u_c : this.PointLight1.c
                         },
           
                         {
-                            u_lightPos: PointLight2.lightPos,
-                            u_lightTarget: PointLight2.lightTarget,
-                            u_diffuseColor: PointLight2.diffuseColor,
-                            u_specularColor: PointLight2.specularColor,
-                            u_a : PointLight2.a,
-                            u_b : PointLight2.b,
-                            u_c : PointLight2.c
+                            u_lightPos: this.PointLight2.lightPos,
+                            u_lightTarget: this.PointLight2.lightTarget,
+                            u_diffuseColor: this.PointLight2.diffuseColor,
+                            u_specularColor: this.PointLight2.specularColor,
+                            u_a : this.PointLight2.a,
+                            u_b : this.PointLight2.b,
+                            u_c : this.PointLight2.c
                         }
                     ]
                 },
@@ -103,23 +73,23 @@ export class Sphere
                 "pointLights" : {
                     value : [
                         {
-                            u_lightPos: PointLight1.lightPos,
-                            u_lightTarget: PointLight1.lightTarget,
-                            u_diffuseColor: PointLight1.diffuseColor,
-                            u_specularColor: PointLight1.specularColor,
-                            u_a : PointLight1.a,
-                            u_b : PointLight1.b,
-                            u_c : PointLight1.c
+                            u_lightPos: this.PointLight1.lightPos,
+                            u_lightTarget: this.PointLight1.lightTarget,
+                            u_diffuseColor: this.PointLight1.diffuseColor,
+                            u_specularColor: this.PointLight1.specularColor,
+                            u_a : this.PointLight1.a,
+                            u_b : this.PointLight1.b,
+                            u_c : this.PointLight1.c
                         },
           
                         {
-                            u_lightPos: PointLight2.lightPos,
-                            u_lightTarget: PointLight2.lightTarget,
-                            u_diffuseColor: PointLight2.diffuseColor,
-                            u_specularColor: PointLight2.specularColor,
-                            u_a : PointLight2.a,
-                            u_b : PointLight2.b,
-                            u_c : PointLight2.c
+                            u_lightPos: this.PointLight2.lightPos,
+                            u_lightTarget: this.PointLight2.lightTarget,
+                            u_diffuseColor: this.PointLight2.diffuseColor,
+                            u_specularColor: this.PointLight2.specularColor,
+                            u_a : this.PointLight2.a,
+                            u_b : this.PointLight2.b,
+                            u_c : this.PointLight2.c
                         }
                     ]
                 },
@@ -142,6 +112,7 @@ export class Sphere
           } );
         
         this.gouraudMaterial.side = THREE.DoubleSide
+
 
         this.sphereGeometry = new THREE.SphereGeometry(this.radius, 40, 40);
         this.sphereMaterial = this.gouraudMaterial

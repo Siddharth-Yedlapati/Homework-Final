@@ -33,30 +33,64 @@ camera.position.y = 0;
 camera.position.z = 10;
 scene.add(camera);
 
+//Lighting:
+let PointLight1 = {
+  lightPos : new THREE.Vector3(-4, 2, 2),
+  diffuseColor : new THREE.Vector4(0.8,0.2,0.9,1.0),
+  kDiffuse : 0.9,
+  
+  kAmbient : 0.2,
+
+  specularColor : new THREE.Vector4(1.0,1.0,1.0,1.0),
+  kSpecular : 0.7,
+  alpha : 100,
+
+  a : 0.0,
+  b : 0.0,
+  c : 0.2
+};
+
+let PointLight2 = {
+  lightPos : new THREE.Vector3(4, 2, 2),
+  diffuseColor : new THREE.Vector4(0.1,0.3,0.1,1.0),
+  kDiffuse : 0.2,
+
+
+  kAmbient : 0.5,
+
+  specularColor : new THREE.Vector4(0.2,0.2,0.8,0.1),
+  kSpecular : 0.9,
+  alpha : 100,
+
+  a : 0.0,
+  b : 0.0,
+  c : 0.2
+};
+
 //creating 9 spheres:
 var spheres = []
 
-spheres.push(new Sphere(camera, scene, 0.4, [3,-3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10))
-spheres.push(new Sphere(camera, scene, 0.4, [0.5,-3,0], [2.5, 2.5, 2.5],[0.7,0.4,0.3,1.0], 0.3, 0.4, 0.8, 100))
-spheres.push(new Sphere(camera, scene, 0.4, [-2,-3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.8, 0.4, 0.1, 100))
-spheres.push(new Sphere(camera, scene, 0.4, [3,0,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.7, 0.4, 0.6, 100))
-spheres.push(new Sphere(camera, scene, 0.4, [0.5,0,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.2, 0.5, 0.6, 1))
-spheres.push(new Sphere(camera, scene, 0.4, [-2,0,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.3, 0.2, 0.9, 10))
-spheres.push(new Sphere(camera, scene, 0.4, [3,3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.2, 0.3, 50))
-spheres.push(new Sphere(camera, scene, 0.4, [0.5,3,0], [2.5, 2.5, 2.5],[0.7,0.4,0.3,1.0], 0.4, 0.6, 0.2, 40))
-spheres.push(new Sphere(camera, scene, 0.4, [-2,3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.1, 0.4, 0.9, 100))
+spheres.push(new Sphere(camera, scene, 0.4, [3,-3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10, PointLight1, PointLight2))
+spheres.push(new Sphere(camera, scene, 0.4, [0.5,-3,0], [2.5, 2.5, 2.5],[0.7,0.4,0.3,1.0], 0.3, 0.4, 0.8, 100, PointLight1, PointLight2))
+spheres.push(new Sphere(camera, scene, 0.4, [-2,-3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.8, 0.4, 0.1, 100, PointLight1, PointLight2))
+spheres.push(new Sphere(camera, scene, 0.4, [3,0,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.7, 0.4, 0.6, 100, PointLight1, PointLight2))
+spheres.push(new Sphere(camera, scene, 0.4, [0.5,0,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.2, 0.5, 0.6, 1, PointLight1, PointLight2))
+spheres.push(new Sphere(camera, scene, 0.4, [-2,0,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.3, 0.2, 0.9, 10, PointLight1, PointLight2))
+spheres.push(new Sphere(camera, scene, 0.4, [3,3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.2, 0.3, 50, PointLight1, PointLight2))
+spheres.push(new Sphere(camera, scene, 0.4, [0.5,3,0], [2.5, 2.5, 2.5],[0.7,0.4,0.3,1.0], 0.4, 0.6, 0.2, 40, PointLight1, PointLight2))
+spheres.push(new Sphere(camera, scene, 0.4, [-2,3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.1, 0.4, 0.9, 100, PointLight1, PointLight2))
 
 //Creating 9 cylinders:
 var cylinders = []
-cylinders.push(new Cylinder(camera, scene, 0.3, 0.8, [3,-3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10))
-cylinders.push(new Cylinder(camera, scene, 0.3, 0.8, [0.5,-3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10))
-cylinders.push(new Cylinder(camera, scene, 0.3, 0.8, [-2,-3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10))
-cylinders.push(new Cylinder(camera, scene, 0.3, 0.8, [3,0,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10))
-cylinders.push(new Cylinder(camera, scene, 0.3, 0.8, [0.5,0,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10))
-cylinders.push(new Cylinder(camera, scene, 0.3, 0.8, [-2,0,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10))
-cylinders.push(new Cylinder(camera, scene, 0.3, 0.8, [3,3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10))
-cylinders.push(new Cylinder(camera, scene, 0.3, 0.8, [0.5,3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10))
-cylinders.push(new Cylinder(camera, scene, 0.3, 0.8, [-2,3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10))
+cylinders.push(new Cylinder(camera, scene, 0.3, 0.8, [3,-3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10, PointLight1, PointLight2))
+cylinders.push(new Cylinder(camera, scene, 0.3, 0.8, [0.5,-3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10, PointLight1, PointLight2))
+cylinders.push(new Cylinder(camera, scene, 0.3, 0.8, [-2,-3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10, PointLight1, PointLight2))
+cylinders.push(new Cylinder(camera, scene, 0.3, 0.8, [3,0,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10, PointLight1, PointLight2))
+cylinders.push(new Cylinder(camera, scene, 0.3, 0.8, [0.5,0,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10, PointLight1, PointLight2))
+cylinders.push(new Cylinder(camera, scene, 0.3, 0.8, [-2,0,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10, PointLight1, PointLight2))
+cylinders.push(new Cylinder(camera, scene, 0.3, 0.8, [3,3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10, PointLight1, PointLight2))
+cylinders.push(new Cylinder(camera, scene, 0.3, 0.8, [0.5,3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10, PointLight1, PointLight2))
+cylinders.push(new Cylinder(camera, scene, 0.3, 0.8, [-2,3,0], [2.5, 2.5, 2.5], [0.7,0.4,0.3,1.0], 0.9, 0.7, 0.2, 10, PointLight1, PointLight2))
 
 var i;
 for(i=0;i<spheres.length;i++)
