@@ -142,29 +142,7 @@ export class Cylinder
           } );
         
         this.gouraudMaterial.side = THREE.DoubleSide
-        changeShading()
-        {
-            if(this.shader_type == "gouraud")
-            {
-                this.shader_type = "phong"
-                this.cylinderMaterial = this.phongMaterial
-                this.scene.remove(this.cylinderMesh)
-                this.cylinderMesh = new THREE.Mesh(this.cylinderGeometry, this.cylinderMaterial);
-                this.cylinderMesh.position.set(this.position[0], this.position[1], this.position[2]);
-                this.cylinderMesh.scale.set(this.scale[0], this.scale[1], this.scale[2]);
-                this.scene.add(this.cylinderMesh)
-            }
-            else if(this.shader_type == "phong")
-            {
-                this.shader_type = "gouraud"
-                this.cylinderMaterial = this.gouraudMaterial
-                this.scene.remove(this.cylinderMesh)
-                this.cylinderMesh = new THREE.Mesh(this.cylinderGeometry, this.cylinderMaterial);
-                this.cylinderMesh.position.set(this.position[0], this.position[1], this.position[2]);
-                this.cylinderMesh.scale.set(this.scale[0], this.scale[1], this.scale[2]);
-                this.scene.add(this.cylinderMesh)
-            }
-        }
+
 
         this.cylinderGeometry = new THREE.CylinderGeometry(this.radius, this.radius, this.height, 40, 40);
         this.cylinderMaterial = new THREE.MeshPhongMaterial({color:this.color});
