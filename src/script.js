@@ -12,7 +12,7 @@ import phongFragmentShader from "./phongFragmentShader.glsl.js";
 
 // http://www.realtimerendering.com/erich/udacity/exercises/unit3_specular_demo.html
 
-
+ 
 const canvas = document.querySelector("canvas.webgl");
 
 const scene = new THREE.Scene();
