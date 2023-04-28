@@ -7,98 +7,139 @@ import phongFragmentShader from "./phongFragmentShader.glsl.js";
 
 export class Sphere
 {
-    constructor(camera, scene, radius, position, scale, color, props, lightPos1, lightPos2, diffuseColor1, diffuseColor2, ambientColor1, ambientColor2, specularColor1, specularColor2, a1, a2, b1, b2, c1, c2)
+    constructor(camera, scene, radius, position, scale, ambientColor, kDiffuse, kAmbient, kSpecular, alpha)
     {
         this.radius = radius
         this.position = position
         this.scale = scale
-        this.props = props
         this.shader_type = "gouraud"
         this.scene = scene
 
-        this.phongMaterial = new THREE.ShaderMaterial( {
+        let PointLight1 = {
+            lightPos : new THREE.Vector3(-4, 2, 2),
+            diffuseColor : new THREE.Vector4(0.8,0.2,0.9,1.0),
+            kDiffuse : 0.9,
+            
+            kAmbient : 0.2,
+        
+            specularColor : new THREE.Vector4(1.0,1.0,1.0,1.0),
+            kSpecular : 0.7,
+            alpha : 100,
+        
+            a : 0.0,
+            b : 0.0,
+            c : 0.2
+        };
+        
+        let PointLight2 = {
+            lightPos : new THREE.Vector3(4, 2, 2),
+            diffuseColor : new THREE.Vector4(0.1,0.3,0.1,1.0),
+            kDiffuse : 0.2,
+        
+
+            kAmbient : 0.5,
+        
+            specularColor : new THREE.Vector4(0.2,0.2,0.8,0.1),
+            kSpecular : 0.9,
+            alpha : 100,
+        
+            a : 0.0,
+            b : 0.0,
+            c : 0.2
+        };
+
+        this.phongMaterial = new THREE.ShaderMaterial(  
+        {
             uniforms: {
                 "pointLights" : {
                     value : [
                         {
-                            u_lightPos: lightPos1,
-                            u_diffuseColor: diffuseColor1,
-                            u_specularColor: specularColor1,
-                            u_a : a1,
-                            u_b : b1,
-                            u_c : c1
+                            u_lightPos: PointLight1.lightPos,
+                            u_lightTarget: PointLight1.lightTarget,
+                            u_diffuseColor: PointLight1.diffuseColor,
+                            u_specularColor: PointLight1.specularColor,
+                            u_a : PointLight1.a,
+                            u_b : PointLight1.b,
+                            u_c : PointLight1.c
                         },
-        
+          
                         {
-                            u_lightPos: lightPos2,
-                            u_diffuseColor: diffuseColor2,
-                            u_specularColor: specularColor2,
-                            u_a : a2,
-                            u_b : b2,
-                            u_c : c2
+                            u_lightPos: PointLight2.lightPos,
+                            u_lightTarget: PointLight2.lightTarget,
+                            u_diffuseColor: PointLight2.diffuseColor,
+                            u_specularColor: PointLight2.specularColor,
+                            u_a : PointLight2.a,
+                            u_b : PointLight2.b,
+                            u_c : PointLight2.c
                         }
                     ]
                 },
-        
+          
                 'u_cameraPos' : {value : new THREE.Vector3(
                     camera.position.x,
                     camera.position.y,
                     camera.position.z
                 )},
-        
-                'u_kDiffuse' : {value : props.kDiffuse},
-                'u_kAmbient' : {value : props.kAmbient},
-                'u_kSpecular' : {value : props.kSpecular},
-                'u_alpha' : {value : props.alpha},
-                'u_ambientColor' : {value: ambientColor1}
+
+          
+                'u_kDiffuse' : {value : kDiffuse},
+                'u_kAmbient' : {value : kAmbient},
+                'u_kSpecular' : {value : kSpecular},
+                'u_alpha' : {value : alpha},
+                'u_ambientColor' : {value: ambientColor},
+                'u_texture' : {value: new THREE.TextureLoader().load("/textures/checkerboard.png")}
             },
-            vertexShader: phongVertexShader,
-            fragmentShader: phongFragmentShader
-        } );
+          vertexShader: phongVertexShader,
+          fragmentShader: phongFragmentShader
+          }
+        );
         
         this.phongMaterial.side = THREE.DoubleSide
 
-        console.log(props.kSpecular)
 
-        this.gouraudMaterial = new THREE.ShaderMaterial( {
+
+        this.gouraudMaterial = new THREE.ShaderMaterial(         {
             uniforms: {
                 "pointLights" : {
                     value : [
                         {
-                            u_lightPos: lightPos1,
-                            u_diffuseColor: diffuseColor1,
-                            u_specularColor: specularColor1,
-                            u_a : a1,
-                            u_b : b1,
-                            u_c : c1
+                            u_lightPos: PointLight1.lightPos,
+                            u_lightTarget: PointLight1.lightTarget,
+                            u_diffuseColor: PointLight1.diffuseColor,
+                            u_specularColor: PointLight1.specularColor,
+                            u_a : PointLight1.a,
+                            u_b : PointLight1.b,
+                            u_c : PointLight1.c
                         },
-        
+          
                         {
-                            u_lightPos: lightPos2,
-                            u_diffuseColor: diffuseColor2,
-                            u_specularColor: specularColor2,
-                            u_a : a2,
-                            u_b : b2,
-                            u_c : c2
+                            u_lightPos: PointLight2.lightPos,
+                            u_lightTarget: PointLight2.lightTarget,
+                            u_diffuseColor: PointLight2.diffuseColor,
+                            u_specularColor: PointLight2.specularColor,
+                            u_a : PointLight2.a,
+                            u_b : PointLight2.b,
+                            u_c : PointLight2.c
                         }
                     ]
                 },
-        
+          
                 'u_cameraPos' : {value : new THREE.Vector3(
                     camera.position.x,
                     camera.position.y,
                     camera.position.z
                 )},
-        
-                'u_kDiffuse' : {value : props.kDiffuse},
-                'u_kAmbient' : {value : props.kAmbient},
-                'u_kSpecular' : {value : props.kSpecular},
-                'u_alpha' : {value : props.alpha},
-                'u_ambientColor' : {value: ambientColor1}
+          
+                'u_kDiffuse' : {value : kDiffuse},
+                'u_kAmbient' : {value : kAmbient},
+                'u_kSpecular' : {value : kSpecular},
+                'u_alpha' : {value : alpha},
+                'u_ambientColor' : {value: ambientColor}
+    
             },
-            vertexShader: gouraudVertexShader,
-            fragmentShader: gouraudFragmentShader
-        } );
+          vertexShader: gouraudVertexShader,
+          fragmentShader: gouraudFragmentShader
+          } );
         
         this.gouraudMaterial.side = THREE.DoubleSide
 
