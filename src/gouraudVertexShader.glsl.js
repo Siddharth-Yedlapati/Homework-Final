@@ -8,6 +8,7 @@ struct PointLight {
     float u_c;
 };
 
+uniform int num_lights;
 uniform PointLight pointLights[2];
 uniform vec3 u_cameraPos;
 uniform float u_kDiffuse;
@@ -69,7 +70,7 @@ void main() {
     vec3 position = (modelMatrix * vec4( position, 1.0)).xyz;
 
     vec3 res = vec3(0.0,0.0,0.0);
-    for(int i = 0; i < 2; i++) {
+    for(int i = 0; i < num_lights; i++) {
         res += pointLightEffect(pointLights[i], unitNormal, position);
     }
 
